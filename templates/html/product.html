@@ -1,0 +1,253 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+	@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+	</style>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ASTER - Product Details</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css'%}">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+	<!--================ Start Header Menu Area =================-->
+	 {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+  <!--================Single Product Area =================-->
+ 
+	<div class="product_image_area"  >
+		
+		<div class="container">
+			<div class="row s_product_inner" >
+				<div class="col-lg-6" >
+					{% for i in ch %}
+						<div class="single-prd-item" >
+							<img class="img-fluid" src="{{pk.image.url}}" alt="">
+						</div>
+						</div> 
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					
+					<div class="s_product_text">
+						<h3 id="name" >{{pk.name}}</h3>
+						<h2 id="price" >{{i.discount}}EGP /{{discount}}%-OFF</h2>
+						<h3 style="text-decoration: line-through;"  >{{i.price}}EGP</h3>
+						<ul class="list">
+							<li><a class="active" href=""><span>Size</span> : {{i.size}}</a></li>
+							<li><a class="active" href=""><span>Category</span> : {{i.Category}}</a></li>
+          
+							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+              <li><a class="active" href=""><span> deliver on</span> : {{d_days}}</a></li>  
+						</ul>
+            {% endfor %}
+        
+            <style>
+              input {
+color: #693a86;
+/* The native appearance is hidden */
+appearance: none;
+-webkit-appearance: none;
+
+/* For a circular appearance we need a border-radius. */
+border-radius: 60%;
+
+/* The background will be the radio dot's color. */
+background: #693a86;
+
+/* The border will be the spacing between the dot and the outer circle */
+border: 3px solid #693a86;
+
+/* And by creating a box-shadow with no offset and no blur, we have an outer circle */
+box-shadow: 0 0 0 1px #693a86;
+}
+            </style>
+						
+            <div data-mdb-input-init class="form-outline"  class="radio" id="radio-2" name="group" style="width: 8rem;display: flex;margin-top: 5px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> 
+							<label class="form-label" style="margin-top: 8px;text-align: center;font-size: 15px;" id="qty" for="form1">quantity:</label>
+							<div  style="height: 32px;" class="">
+								&nbsp; &nbsp; &nbsp; </div>
+							<input type="number" id="form1" value="1" class="form-control form-icon-trailing" />
+						</div>
+						
+						  {% for i in pv %}
+						  <div class="card" style="margin-top: 10px; ">
+							<div class="card-body" style="border: 0.5px solid; border-color: #693a86;text-align: center;font-size: 10px;color: black; font-weight: 900;letter-spacing: 0.3px;">
+							<input class="form-check-input" {{i.ava}} type="radio" name="type"  value="{{i.id}}" id=""><span style="color: black;"> Size: </span> {{i.size}} --<span style="color: black;"> Type: </span> {{i.type}}--<span style="color: black;"> PRICE: </span> {{i.discount}}
+							</div>
+						  </div>
+              <span style="display: none;" id="idd">{{i.id}}</span>
+						  {% endfor %}
+             
+						<a  class="btn"  style="margin-top: 10px;margin-bottom: 10px;color: white;font-size: 17px;" id="add-to-cart" >اضف الي السلة</a>   
+						<button class="btn" style="margin-top: 10px;margin-bottom: 10px;color: white;background-color:#432861;font-size: 17px;" id="add-to-cart" onclick="pvi()" >اشتري دلوقتي</button>
+               	          
+						</div>
+            &nbsp;
+            &nbsp;
+        
+						<span  style="color: white;">{{pk.id}}</span>		  
+				</div>
+			</div>
+		</div>
+	</div>
+  
+	<!--================End Single Product Area =================-->
+	<!--================Product Description Area =================-->
+	<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+				</li>	
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>{{pk.descretion}}</p>
+
+				</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Product Description Area =================-->
+	<!--================ Start related Product area =================-->  
+	
+	<section class="related-product-area section-margin--small mt-0">
+		<div class="container">
+			<div class="section-intro pb-60px">
+        <p>Popular Item in the market</p>
+        <h2>related <span class="section-intro__style">Product</span></h2>
+      </div>
+			<div class="row mt-30">
+      {% for i in rl %}	
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="single-search-product-wrapper">
+            <div class="single-search-product d-flex">
+              <a href="{% url 'products' pk.id  %}"><img src="{{i.product.image.url}}"alt=""></a>
+              <div class="desc">
+                  <a href="{% url 'products' i.product.id  %}" id="name" class="title">{{i.product.name}}</a>
+                  <div class="price">{{i.discount}}EGP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+		</div>
+	</section>
+	<script>
+    function pvi() {
+    const id = $("#idd").text();
+    url = ( 'checkrn/'+id)
+    window.location.href = url;
+}
+  </script>
+	<!--================ end related Product area =================-->  	
+  <!--================ Start footer Area  =================-->	
+	 {% include "parts/footer.html" %}
+	<!--================ End footer Area  =================-->
+  <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/skrollr.min.js'%}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+  <script>
+	document.addEventListener('DOMContentLoaded', () => {
+    const radioButtons = document.querySelectorAll('input[type="radio"][name="type"]');
+    const pp = $('#price');
+    const addToCartButton = $("#add-to-cart");
+    const itemCount = $('#count');
+    
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', () => {
+            const checkedOption = Array.from(radioButtons).find(radio => radio.checked);
+            if (checkedOption) {
+                console.log(`Checked: ${checkedOption.value}`);
+                const id = checkedOption.value;
+                const idd = $("#idd").text(id)
+                $.ajax({
+                    url: "{% url 'getprice' %}",
+                    data: {
+                        'id': id,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response.price);
+                        pp.text(response.price + "EGP");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching price:", error);
+                    }
+                });
+            } else {
+                console.log('');
+            }
+        });
+    });
+
+    // Bind the click event for the "add-to-cart" button once
+    addToCartButton.on('click', function() {
+        const checkedOption = Array.from(radioButtons).find(radio => radio.checked);
+        if (checkedOption) {
+            const id = checkedOption.value;
+            const qty = $("#form1").val();
+            const thisButton = $(this);
+            let offerm = $("#offer")
+            console.log("id", id);
+            console.log("qty", qty);
+            console.log("count", itemCount);
+            $.ajax({
+                url: "add/",
+                data: {
+                    'id': id,
+                    'qty': qty,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    thisButton.html("تم اضافة المنتج");
+                    itemCount.text(response.items_count);
+                    offerm.text(response.offer)
+                    Toastify({
+                        text: "تم اضافة المنتج بنجاح",
+                        duration: 2000,
+                        newWindow: false,
+                        close: true,
+                        gravity: "bottom", // `top` or `bottom`
+                        position: "center", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "#693a86",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error adding item:", error);
+                }
+            });
+        } else {
+            console.log("No option selected");
+        }
+    });
+});
+  </script>
+</body>
+</html>

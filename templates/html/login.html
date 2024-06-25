@@ -1,0 +1,91 @@
+{% load static %}
+  {% if user.is_authenticated %}
+  <h1>you already are logged in</h1>
+  {% else %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aromatics Store - Login</title>
+  <link rel="icon" href="{% static 'imgs/logo.png'%}" type="image/png">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static  'vendors/fontawesome/css/all.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nouislider/nouislider.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+	<!--================ Start Header Menu Area =================-->
+	  {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+  <!--================Login Box Area =================-->
+    {% if messages %}
+    {% for message in messages %}
+	<div class="alert alert-warning align-items-center" style="width: 100%; text-align: center;" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  </button>
+  {{ message }}
+</div>
+
+    {% endfor %}
+{% endif %}
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>New to our website?</h4>
+							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							<a class="button button-account" href="{%url 'reg' %}">Create an Account</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Log in to enter</h3>
+						<form class="row login_form" action="#/" id="contactForm" method="POST" >
+						 {% csrf_token %}
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">Keep me logged in</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" class="button button-login w-100">Log In</button>
+								  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <!--================ Start footer Area  =================-->	
+	 {% include "parts/footer.html" %}
+	<!--================ End footer Area  =================-->
+ <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/skrollr.min.js' %}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+</body>
+</html>
+{% endif %}

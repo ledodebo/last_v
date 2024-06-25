@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>aster store - Home</title>
+	<link rel="icon" href="{% static 'imgs/log.png'%}" type="image/png">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body >
+  <!--================ Start Header Menu Area =================-->
+	  {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+
+
+
+  <html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+  </head>
+    <style>
+      body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+      }
+        h1 {
+          color: #bc66a6;
+       
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        .p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      .checkmark {
+        color:#bc66a6 ;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+    </style>
+              
+    <body>
+      <div class="card">
+      <div style="border-radius:200px; height:200px; width:180px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark">✓</i>
+      </div>
+        <h1>تم بنجاح</h1> 
+        <p class="p">تم ارسال الطلب بنجاح<br/>  سيتم الواصل معكم في اقرب وقت!</p>
+     
+      </div>
+      
+
+    </body>
+    
+<div style="height: 20px;" class="d"></div>
+</html>
+  <!--================ Start footer Area  =================-->	
+   {% include "parts/footer.html" %}
+  <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/skrollr.min.js' %}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+</body>
+</html>

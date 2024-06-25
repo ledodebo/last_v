@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Category</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+  
+  
+	
+	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  
+ 
+  
+  <link rel="stylesheet" href="{% static 'vendors/nouislider/nouislider.min.css' %}">
+  
+  	<link rel="icon" href="{% static 'imgs/logo.png'%}" type="image/png">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body id="skrollr-body">
+  <!--================ Start Header Menu Area =================-->
+   {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+  
+	<!-- ================ start banner area ================= -->	
+  
+	<!-- ================ end banner area ================= -->
+  
+	   {% if messages %}
+    {% for message in messages %}
+	<div class="alert alert-success align-items-center" style="width: 100%; text-align: center;" role="alert">
+
+  {{ message }}
+</div>
+    {% endfor %}
+{% endif %}
+	<!-- ================ category section start ================= -->	
+  	  
+  <section class="section-margin--small mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <div class="sidebar-categories">
+            <div class="head">Browse Categories</div>
+            <ul class="main-categories">
+              <li class="common-filter">
+                <form class="w-50 p-4" method="GET" >
+                   {{ filter.form.as_p   }}
+                  <input type="submit" value="Search"  class="button  mr-auto  mt-5  mr-4">
+                  </ul>
+              </li>
+            </ul>
+          </div>
+         
+        </div>
+      </form>
+    
+        <div class="col-xl-7 col-lg-3 col-md-7">
+          <!-- Start Filter Bar -->
+          
+          <form method="post">
+            
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+              <div>
+                <div class="input-group filter-bar-search">
+                  {% csrf_token %} 
+                  <input type="text" name="search_query" placeholder="Search">
+                  <div class="input-group-append">
+                    <button type="button"><i class="ti-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </form>          <!-- End Filter Bar -->
+          <!-- Start Best Seller -->
+          <section class=" ">
+            &nbsp;
+            
+            <div class="row">
+            
+              &nbsp;
+              &nbsp;
+            &nbsp;
+              <div class="">
+
+                <div class="card text-center card-product">
+                  <div class="card-product__img">
+                    <img class="card-img"   style="width: 11rem;" src="{{filterr.product.image.url}}" alt="">
+                    <ul class="card-product__imgOverlay">
+                    
+                      <a ><li ><button type="button" data-index="{{filterr.ProductVariation}}" class="add-to-cart "><i  class="ti-shopping-cart  added">Add to Cart </i></button></li></a>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <p>{{filterr.catagory}}</p>
+                    <h4 class="card-product__title"><a id="name" href="{% url 'products' filterr.product.id  %}">{{filterr}}</a></h4>
+                    <p class="card-product__price">{{filterr.discount}}EGP</p>
+                      <p style="text-decoration: line-through;font-size: 15px;"  class="card-product__price">{{filterr.price}}EGP</p>
+                  </div>
+                </div>
+              </div>
+              
+          </section>
+          <!-- End Best Seller -->
+        </div>
+      </div>
+    </div>
+  </section>
+	<!-- ================ category section end ================= -->		  
+	<!-- ================ Subscribe section start ================= -->		  
+  <section class="subscribe-position">
+    <div class="container">
+      <div class="subscribe text-center">
+        <h3 class="subscribe__title">Get Update From Anywhere</h3>
+        <p>Bearing Void gathering light light his eavening unto dont afraid</p>
+        <div id="mc_embed_signup">
+          <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
+            <div class="form-group ml-sm-auto">
+              <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" >
+              <div class="info"></div>
+            </div>
+            <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
+            <div style="position: absolute; left: -5000px;">
+              <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+            </div>
+
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <div class="ss" id="ajax-response">sdasdsd</div>
+	<!-- ================ Subscribe section end ================= -->		  
+
+
+  <!--================ Start footer Area  =================-->	
+{% include "parts/footer.html" %}
+	<!--================ End footer Area  =================-->  
+ <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/skrollr.min.js' %}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+  <script src="{% static 'js/ajax.js'%}"></script>
+  <script src="{% static  'vendors/nouislider/nouislider.min.js' %}"></script>
+  <script>
+    $(".add-to-cart").on('click',function(){
+      let qty  = $("#form1").val()
+      let name = $(this)
+      let id = name.attr("data-index")
+      let this_b = $(".added")
+      let iteam_count = $('#count')
+      console.log("id",id);
+      console.log("qty",qty);
+      console.log("count",iteam_count);
+      console.log(this_b)
+      $.ajax({
+        url : "add/",
+        data:{
+          'id' : id,
+          'qty' : qty,
+        },
+        dataType:'json',
+        success : function(response){
+          console.log("id",id)
+          iteam_count.text(response.items_count)
+        }
+      })
+    })
+    </script>
+  
+</body>
+</html>

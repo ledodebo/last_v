@@ -1,0 +1,194 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Checkout</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+  <link rel="icon" href="{% static 'imgs/logo.png'%}" type="image/png">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+
+  <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nouislider/nouislider.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+	 {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+  {% if messages %}
+  {% for message in messages %}
+<div class="alert alert-success align-items-center" style="width: 100%;  text-align: center;" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+</button>
+{{ message }}
+</div>
+  {% endfor %}
+{% endif %}
+  <!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Product Checkout</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section-margin--small">
+    <div class="container">
+        <div class="returning_customer">
+            <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
+                customer, please proceed to the Billing & Shipping section.</p>
+        </div>
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <form  method="post"> 
+                        {% csrf_token %} 
+                        <div class="form-group">
+                           
+                              <label for="inputEmail4">الاسم</label>
+                              {% render_field form.name placeholder="الاسم" style="width:100%" class="form-control" %}
+                            
+                          </div>
+                        <div class="form-group">
+                            <label for="inputAddress">العنوان</label>
+                            {% render_field form.adress placeholder="العنوان بالتفصيل" class="form-control" %}
+                          </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputEmail4">الايميل</label>
+                            {% render_field form.email placeholder="الايميل" class="form-control" %}
+                          </div>   
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">رقم الهاتف</label>
+                            {% render_field form.phone placeholder="رقم الهاتف" onchange="handleChange(event)" id="phone" class="form-control" %}
+                          </div>
+
+                          <div class="form-group">
+                            <label for="inputAddress">رقم هاتف بديل</label>
+                            {% render_field form.phone2 placeholder="رقم الهاتف"  id="phone" class="form-control" %}
+                          </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">المنقطة/الحي</label>
+                            <input type="text" placeholder="المحافظة"  class="form-control" id="inputCity">
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="inputState">المحافظة</label><br>
+                            {% render_field form.zones placeholder="المحافظة" style="z-index:2;" class="form-group" %}
+                          </div> 
+                        </div>                         
+                     <button type="submit" class="button button-paypal">اتمام الطلب</button>
+                      </form>
+                        
+                </div>
+                <div class="col-lg-4">
+                  &nbsp;
+                  &nbsp;
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        {% for item in cart_items %}
+                        <ul class="list">
+                        
+                            <li><a href="#">{{item.ProductVariation|truncatewords:2  }}<span class="middle">x{{ item.quantity  }} </span> <span class="last"> {% widthratio item.quantity  1 item.ProductVariation.discount %}</span></a></li>
+                        </ul>
+                         {% endfor %}
+                        <ul class="list list_2">
+                            <li><a href="#">0total <span> EGP{{total_price}}</span></a></li>
+                           
+                         
+                        </ul>
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" checked="checked" id="f-option5" name="selector">
+                                <label for="f-option5" style="z-index: 0;">دفع عند الاستلام</label>
+                                <div class="check"></div>
+                            </div>
+                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County,
+                                Store Postcode.</p>
+                        </div>
+                        
+                        <div class="payment_item active">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option6" name="selector" disabled >
+                                <label for="f-option6" style="z-index: 0;" disabled >Paypal  (coming soon <3)</label>
+                                <img src="img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                             
+                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                account.</p>
+                        </div>
+                       
+                        <div class="text-center">
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+  <!--================ Start footer Area  =================-->	
+ {% include "parts/footer.html" %}
+
+
+ <script>
+  let pnumber = $("#phone").val()
+  function handleChange(event) {
+    const value = event.target.value;
+    console.log(value)
+    
+    $.ajax({
+        url : "inc/",
+        data:{
+          'phone' : value,
+        },
+        dataType:'json',
+        success : function(response){
+          console.log("id")
+         
+        }
+      })
+    }
+
+   
+
+
+
+
+     
+</script>
+	<!--================ End footer Area  =================-->
+ <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/skrollr.min.js' %}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+</body>
+</html>

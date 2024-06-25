@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Cart</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+    <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/nouislider/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shopping_Cart.css' %}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+ {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+	<!-- ================ start banner area ================= -->	
+	<!-- ================ end banner area ================= -->
+  <!--================Cart Area =================-->
+ <div class="card">
+            <div class="row">
+                <div  class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col"><h4><b>عربة التسوق</b></h4></div>
+                            <div class="col align-self-center text-right text-muted">{{items_count}} items</div>
+                        </div>
+                    </div>  
+                    {% for item in cart_items %}
+
+                    <div class="cart-item">
+                        <div id="cart-item-{{ item.id }}"   class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" src="{{item.ProductVariation.product.image.url}}"></div>
+                            <div class="col">
+                                <div class="row text-muted">{{item.product.catagory}}</div>
+                                <div  id="name" class="row">{{ item.ProductVariation }}</div>
+                            </div>
+                            <div class="col info">
+                                <button   class="decrease-btn" data-id="{{ item.ProductVariation.id }}" data-ic="{{ item.id }}"   style="border: none; background: none;">-</button><span style="color: black;" id="quantity-{{ item.id }}">{{ item.quantity }}</span><button  class="increase-btn" data-id="{{ item.id }}"  data-ic="{{ item.ProductVariation.id }}"  style="border: none; background: none;">+</button>
+                            </div>
+                            <div class="col"> {% widthratio item.quantity  1 item.ProductVariation.discount %}<span  data-id="{{ item.id }}" class="close delete-btn">&#10005;</span></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                   
+                <p style="color: black;text-align: center;font-size: 20px;">عربة التسوق فارغة :(</p>
+                <a class="btn"  href="{% url 'cag' %}">تشوف حاجة تانية ؟</a>
+                   
+                     
+                    {% endfor %}
+                    <tr class="bottom_button">
+
+                    <div class="back-to-shop"><a href="{% url 'cag' %}">&leftarrow;</a><a href="{% url 'cag' %}"><span class="text-muted">Back to shop</span></a></div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div><h5><b>Summary</b></h5></div>
+                    <hr>
+                    <div class="row">
+                     
+                        
+                    </div>
+                    <form>
+                        <p>GIVE CODE</p>
+                        <input id="code" placeholder="Enter your code">
+                    </form>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right"> EGP{{total_price}}</div>
+                    </div>
+
+                   <a class="btn" href="{% url 'check' %}">CHECKOUT</a>
+                </div>
+            </div>
+            
+        </div>
+        &nbsp;&nbsp;
+  <!--================End Cart Area =================-->
+
+  <!--================ Start footer Area  =================-->	
+   {% include "parts/footer.html" %}
+	<!--================ End footer Area  =================-->
+<script>
+   $(document).ready(function() {
+    $('.increase-btn').click(function() {
+        var cart_item_id = $(this).data('id');
+        var cart_item_ic = $(this).data('ic');
+        console.log(cart_item_id)
+        let iiteam_count = $('#count')
+        $.ajax({
+            url: 'add/',
+            method: 'GET',
+            data: {
+                'id': cart_item_ic,
+            },
+            success: function(response) {
+                console.log('Response:', response);
+                var quantityElementId = '#quantity-' + cart_item_id;
+                var quantityElement = $(quantityElementId);
+                console.log('Quantity element before update:', quantityElement.text());
+                console.log('Quantity element ID:', quantityElementId);
+                console.log('Quantity element:', quantityElement);
+                console.log('Response quantity:', response.items_count);
+                if (response.ittems_count !== undefined) {
+                    quantityElement.text(response.ittems_count);
+                   
+                } else {
+                    console.error("Quantity not in response:", response);
+                }
+
+            },
+            error: function(xhr, status, error) {
+        console.error("AJAX Error:", status, error);
+            }
+        });
+    });
+    $('.decrease-btn').click(function() {
+	      let iteam_count = $('#count')
+        var cart_item_id = $(this).data('id');
+        var cart_item_ic = $(this).data('ic');
+        var quantityElement = $('#quantity-' + cart_item_ic);
+        var currentQuantity = parseInt(quantityElement.text());
+        console.log (currentQuantity)
+        if (currentQuantity > 1){
+            $.ajax({
+            url: 'mines/',
+            method: 'GET',
+            data: {
+                'id': cart_item_id,
+            },
+            success: function(response) {
+                var quantityElementId = '#quantity-' + cart_item_ic;
+                var quantityElement = $(quantityElementId);
+                if (response.items_count !== undefined) {
+                    quantityElement.text(response.items_count);
+                    iteam_count.text(response.items_count)
+                } else {
+                    console.error("Quantity not in response:", response);
+                }
+            },
+            error: function(xhr, status, error) {
+        console.error("AJAX Error:", status, error);
+            }
+        });
+        }else{
+            var cart_item_id = $(this).data('id');
+            console.log('Deleting item with ID:', cart_item_id);
+            $.ajax({
+            url: '{% url "delete_cart_item" %}',
+            method: 'GET',
+            data: {
+                'cart_item_id': cart_item_ic,    
+            },
+            success: function(response) {
+                console.log('Delete response:', response);
+                console.log ('#cart-item-' + cart_item_id)
+                
+                if (response.success) {
+                    $('#cart-item-' + cart_item_ic).remove();
+                    iteam_count.text(response.items_count)
+                } else {
+                    console.error("Error deleting item:", response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+            }
+        });
+        }
+    });$('.delete-btn').click(function() {
+        var cart_item_id = $(this).data('id');
+        let iiteam_count = $('#count')
+        console.log('Deleting item with ID:', cart_item_id); // Add this line
+        $.ajax({
+            url: '{% url "delete_cart_item" %}',
+            method: 'GET',
+            data: {
+                'cart_item_id': cart_item_id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            success: function(response) {
+                console.log('Delete response:', response);
+                console.log ('#cart-item-' + cart_item_id)
+                if (response.success) {
+                    $('#cart-item-' + cart_item_id).remove();
+                    iiteam_count.text(response.items_count)
+                } else {
+                    console.error("Error deleting item:", response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+            }
+        });
+    });
+})
+</script>
+</script>
+  <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'vendors/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'vendors/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+</body>
+</html>
