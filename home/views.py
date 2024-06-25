@@ -180,6 +180,7 @@ def index(requst):
     x_forwarded_for_value = requst.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for_value:
         ip_addr = x_forwarded_for_value.split(',')[-1].strip()
+        ip_addr = (ip_addr +" "+requst.META['HTTP_USER_AGENT'])
     else:
         ip_addr = requst.META.get('REMOTE_ADDR')
         ip_addr = (ip_addr +" "+requst.META['HTTP_USER_AGENT'])
