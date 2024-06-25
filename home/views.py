@@ -182,6 +182,7 @@ def index(requst):
         ip_addr = x_forwarded_for_value.split(',')[-1].strip()
     else:
         ip_addr = requst.META.get('REMOTE_ADDR')
+        ip_addr = (ip_addr +" "+requst.META['HTTP_USER_AGENT'])
     phone_percentage = requst.POST.get('phone_percentage') 
     
     if phone_percentage == None:
