@@ -177,21 +177,25 @@ def producct(requst,pk):
     return render(requst,"html/product.html",context)
 #___________________________________________________________________________________
 def index(requst):   
-    ip_address = requst.META.get('REMOTE_ADDR')  # Get user's IP address
-    phone_percentage = requst.POST.get('phone_percentage')  # Example: if sent via a form
-    # Ensure phone_percentage is an integer before saving
+    x_forwarded_for_value = requst.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for_value:
+        ip_addr = x_forwarded_for_value.split(',')[-1].strip()
+    else:
+        ip_addr = requst.META.get('REMOTE_ADDR')
+    phone_percentage = requst.POST.get('phone_percentage') 
+    
     if phone_percentage == None:
 
         phone_percentage = 1
     # Create and save the UserActivity instance
-        existing_activity = UserActivity.objects.filter(ip_address=ip_address).first()
+        existing_activity = UserActivity.objects.filter(ip_address=ip_addr).first()
         
         if existing_activity:
             # Handle the case where a record already exists with this IP address
             error_message = "This IP address already has an associated activity."
         else:
             activity = UserActivity.objects.create(
-        ip_address=ip_address,
+        ip_address=ip_addr,
         phone_percentage=phone_percentage,
     )
     prodcu = ProductVariation.objects.filter(ava=True)[:4]
