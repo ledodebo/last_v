@@ -103,59 +103,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script>| <var
 </p>
 				</div>
 				<script>
-				const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
-document.addEventListener('DOMContentLoaded', () => {
-  const event = document.querySelector("var");
-  const event2 = document.querySelector("pp");
-
-  const animateText = (element, intervalTime) => {
-    let iter = 0;
-    const length = element.dataset.value.length;
-
-    const updateText = () => {
-      let displayText = '';
-      for (let i = 0; i < length; i++) {
-        if (i < iter) {
-          displayText += element.dataset.value[i];
-        } else {
-          displayText += letters[Math.floor(Math.random() * letters.length)];
-        }
-      }
-      element.innerText = displayText;
-      iter += 1 / 3;
-      if (iter < length) {
-        setTimeout(updateText, intervalTime);
-      }
-    };
-
-    updateText();
-  };
-
-  const handleAnimation = (element, delay) => {
-    setTimeout(() => {
-      animateText(element, 2); // Increase intervalTime for less frequent updates
-    }, delay);
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (entry.target === event) {
-          handleAnimation(event, 2500); 
-        } else if (entry.target === event2) {
-          handleAnimation(event2, 2900); 
-        }
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  observer.observe(event);
-  observer.observe(event2);
-});
-
-				  </script>
+			
 			</div>
 		</div>
 	</footer>
