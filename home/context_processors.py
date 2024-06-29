@@ -21,7 +21,7 @@ def items_count(requset):
       else :
             message = ("FREE DELIVERY TO YOUR HOME FROM EGP 1000")
       
-      return {'items_count':a,'offer':message}
+      return {'items_count':a,'offer':message,"total_price":total_price}
    else:
        device = requset.COOKIES.get('device')
        a = CartItem.objects.filter(device=device).count()
@@ -36,6 +36,6 @@ def items_count(requset):
          message = ("NOW YOU HAVE FREE DELIVERY")
        else :
             message = ("FREE DELIVERY TO YOUR HOME FROM EGP 1000")
-       return {'items_count':a,'offer':message}
+       return {'items_count':a,'offer':message,"total_price":total_price}
     
 
