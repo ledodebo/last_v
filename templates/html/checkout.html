@@ -114,7 +114,13 @@
                         </ul>
                          {% endfor %}
                         <ul class="list list_2">
-                            <li><a href="#">0total <span> EGP{{total_price}}</span></a></li>
+                        <li id="paidship"><a href="#">Shipping <span > EGP50</span></a></li>
+                        <li id="freeship" ><a href="#">Shipping <span > <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="color: #693a86;margin-left: 15px;" fill="currentColor" class="bi bi-check2-circle  " viewBox="0 0 16 16">
+                                <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                              </svg>   </span></a></li>
+                            <li id="total_price"><a href="#">total <span> <span id="bd"> + 50  EGP</span> {{total_price}}</span></a></li>
+                              
                            
                          
                         </ul>
@@ -156,6 +162,39 @@
 
 
  <script>
+ function myFunction() {
+    fetch("http://127.0.0.1:8000/data/")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    total_price =  data.data.total_price;
+
+    if (total_price > 1000){
+      
+        document.getElementById('freeship').style.display = 'block'
+        document.getElementById('paidship').style.display = 'none'
+        document.getElementById('bd').style.display = 'none'
+
+        
+    }
+    else{
+      document.getElementById('freeship').style.display = 'none'
+        document.getElementById('paidship').style.display = 'block'
+        document.getElementById('bd').style.display = 'block'
+        
+       
+    }
+
+  })
+  .catch(err => console.error("Fetch error:", err));
+}
+myFunction()
+
+
   let pnumber = $("#phone").val()
   function handleChange(event) {
     const value = event.target.value;
