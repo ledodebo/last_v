@@ -65,18 +65,29 @@
                     <hr>
                     <div class="row">
                      
+                        <p   class="free-shipping col" >shipping</p>
+                        <P id="shipprice">50EGP</P>
+                        <p style="display: none;" id="free_shipping">
+                            FREE
+                            <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="color: #693a86;margin-left: 15px;" fill="currentColor" class="bi bi-check2-circle  " viewBox="0 0 16 16">
+                                <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                              </svg>  
+                        </p>
                         
                     </div>
-                    <form>
-                        <p>GIVE CODE</p>
-                        <input id="code" placeholder="Enter your code">
-                    </form>
+                  
                     <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                        <div class="col">TOTAL PRICE</div>
-                        <div class="col text-right"> EGP{{total_price}}</div>
+                        <div class="col">total price + shipping</div>
+                        <div id="total_price" class="col text-right"> EGP{{total_price}}</div>
                     </div>
 
                    <a class="btn" href="{% url 'check' %}">CHECKOUT</a>
+
+                   <form>
+                    <p>GIVE CODE</p>
+                    <input id="code" placeholder="Enter your code">
+                </form>
                 </div>
             </div>
             
@@ -88,12 +99,40 @@
    {% include "parts/footer.html" %}
 	<!--================ End footer Area  =================-->
 <script>
+function myFunction() {
+    fetch("http://127.0.0.1:8000/data/")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    total_price =  data.data.total_price;
+    document.getElementById("total_price").innerHTML = "50EGP + "+total_price;
+    if (total_price > 1000){
+        let free_shipping_text = $(".free-shipping")
+        document.getElementById('free_shipping').style.display = 'block'
+        document.getElementById('shipprice').style.display = 'none'
+        document.getElementById("total_price").innerHTML = total_price;
+    }
+    else{
+         document.getElementById('free_shipping').style.display = 'none'
+        document.getElementById('shipprice').style.display = 'block'
+        document.getElementById("total_price").innerHTML = "50EGP + "+total_price;
+    }
+
+  })
+  .catch(err => console.error("Fetch error:", err));
+}
+myFunction()
    $(document).ready(function() {
     $('.increase-btn').click(function() {
         var cart_item_id = $(this).data('id');
         var cart_item_ic = $(this).data('ic');
         console.log(cart_item_id)
         let iiteam_count = $('#count')
+        let free_shipping_text = $(".free-shipping")
         $.ajax({
             url: 'add/',
             method: 'GET',
@@ -110,6 +149,7 @@
                 console.log('Response quantity:', response.items_count);
                 if (response.ittems_count !== undefined) {
                     quantityElement.text(response.ittems_count);
+                    myFunction()
                    
                 } else {
                     console.error("Quantity not in response:", response);
@@ -141,6 +181,7 @@
                 if (response.items_count !== undefined) {
                     quantityElement.text(response.items_count);
                     iteam_count.text(response.items_count)
+                    myFunction()
                 } else {
                     console.error("Quantity not in response:", response);
                 }
@@ -165,6 +206,7 @@
                 if (response.success) {
                     $('#cart-item-' + cart_item_ic).remove();
                     iteam_count.text(response.items_count)
+                    myFunction()
                 } else {
                     console.error("Error deleting item:", response);
                 }
@@ -191,6 +233,7 @@
                 if (response.success) {
                     $('#cart-item-' + cart_item_id).remove();
                     iiteam_count.text(response.items_count)
+                    myFunction()
                 } else {
                     console.error("Error deleting item:", response);
                 }
