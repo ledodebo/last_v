@@ -28,5 +28,7 @@ urlpatterns = [
    path('product/checkrn/<int:pk>', views.checkrn,name="checkrn"),
     path('getprice/', views.getprice,name="getprice"),
     path('data/', views.items ,name="data"),
+     path('checkout/data/', views.items ,name="data"),
+     path('cart/data/', views.items ,name="data"),
     
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
