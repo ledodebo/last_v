@@ -180,7 +180,6 @@ def index(requst):
     x_forwarded_for_value = requst.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for_value:
         ip_addr = x_forwarded_for_value.split(',')[-1].strip()
-        ip_addr = (ip_addr +" "+requst.META['HTTP_USER_AGENT'])
     else:
         ip_addr = requst.META.get('REMOTE_ADDR')
         ip_addr = (ip_addr +" "+requst.META['HTTP_USER_AGENT'])
@@ -228,6 +227,7 @@ def logout_usr(requst):
     return redirect ("home")
 #___________________________________________________________________________________
 def view_cart(request):
+
     cart_items = ()
     #device = request.COOKIES['device']
     if request.user.is_authenticated:
@@ -235,8 +235,12 @@ def view_cart(request):
     else:
         device = request.COOKIES['device']
         cart_items = (CartItem.objects.filter(device=device))
+
+
+
        
     total_price = sum(item.ProductVariation.discount * item.quantity for item in cart_items)
+   
     return render(request, 'html/cart.html', {'cart_items': cart_items, 'total_price': total_price})
  #___________________________________________________________________________________
 def add_to_cart(request):
@@ -251,7 +255,7 @@ def add_to_cart(request):
        cart_item.save()
        count = items_count(request)
       # messages.success(request,'تم اضافة المنتج بنجاح')
-       return JsonResponse ( {'items_count':count['items_count'],'offer':count['offer']})
+       return JsonResponse ( {'items_count':count['items_count'],'offer':count['offer'],"total_price":count["total_price"]})
        #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
    else :
@@ -262,7 +266,7 @@ def add_to_cart(request):
          cart_item.save()
          count = items_count(request)
          #messages.error(request,"من فضلك قم بتسجيل الدخول اولا")
-         return JsonResponse ( {'items_count':count['items_count'],'offer':count['offer']})
+         return JsonResponse ( {'items_count':count['items_count'],'offer':count['offer'],"total_price":count["total_price"]})
 #___________________________________________________________________________________
 def remove_iteam(request):
     id = request.GET.get("id")
@@ -291,14 +295,14 @@ def remove_iteam(request):
 #___________________________________________________________________________________
 
 def add_iteam(request):
-    count = items_count(request)
     if request.user.is_authenticated:
         id = request.GET.get("id")
         Product = ProductVariation.objects.get(id=id)
         cart_item, created = CartItem.objects.get_or_create(ProductVariation=Product, user=request.user)
         cart_item.quantity += 1 
         cart_item.save()
-        return JsonResponse ( {'ittems_count':cart_item.quantity,'offer':count['offer']})
+        count = items_count(request)
+        return JsonResponse ( {'ittems_count':cart_item.quantity,'offer':count['offer'],"total_price":count["total_price"]})
     
     else:
         device = request.COOKIES['device']
@@ -361,31 +365,27 @@ def getprice(requset):
         pv = ProductVariation.objects.get(id=id)
         price = pv.discount
         return JsonResponse ( {'price':price})
-    
+   
     else:
         return JsonResponse ( {'items_count':cart_item.quantity,'items_count':number})
-
 #___________________________________________________________________________________
 from .models import UserActivity
 
 def capture_user_activity(request):
     ip_address = request.META.get('REMOTE_ADDR')  # Get user's IP address
     phone_percentage = request.POST.get('phone_percentage')  # Example: if sent via a form
-    # Ensure phone_percentage is an integer before saving
-    
-    # Create and save the UserActivity instance
+  
     activity = UserActivity.objects.create(
         ip_address=ip_address,
         phone_percentage=phone_percentage,
     )
-    
-    # Optionally, you can now use 'activity' to perform additional tasks
-    
     return render(request, 'some_template.html', {'activity': activity})
-
-
-
 
 def display_user_activity(request):
     activities = UserActivity.objects.all()
     return render(request, 'activity_list.html', {'activities': activities})
+
+def items(requset):
+      data = items_count(requset)
+      return JsonResponse ({"data":data})
+          
