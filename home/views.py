@@ -311,7 +311,7 @@ def add_iteam(request):
         cart_item, created = CartItem.objects.get_or_create(ProductVariation=Product, device=device)
         cart_item.quantity += 1 
         cart_item.save()
-         cart_item.save()
+        count = items_count(request)
         return JsonResponse ( {'ittems_count':cart_item.quantity,'offer':count['offer']})
 #___________________________________________________________________________________
 
