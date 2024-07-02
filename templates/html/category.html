@@ -88,7 +88,7 @@
                   </div>
                   <div class="card-body">
                     <p>{{i.catagory}}</p>
-                    <h4 style="max-width: 170px;" class="card-product__title"><a id="name" href="{% url 'products' i.product.id  %}">{{i.product.name | truncatewords:2  }}</a></h4>
+                    <h4 style="width: 110px;" class="card-product__title"><a id="name" href="{% url 'products' i.product.id  %}">{{i.product.name | truncatewords:2  }}</a></h4>
                   <a  style="color: black;" href="{% url 'products' i.product.id  %}">
                     <p class="card-product__price">{{i.discount}}EGP</p>
                       <p style="text-decoration: line-through;font-size: 15px;"  class="card-product__price">{{i.price}}EGP</p>
