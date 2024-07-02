@@ -123,7 +123,32 @@ def register_usr(requset):
         return render (requset,"html/register.html",{"form":form})
 #___________________________________________________________________________________
 
+
 def catagory(requset):
+    x_forwarded_for_value = requset.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for_value:
+        ip_addr = x_forwarded_for_value.split(',')[-1].strip()
+        ip_addr = (ip_addr +" "+requset.META['HTTP_USER_AGENT'])
+    else:
+        ip_addr = requset.META.get('REMOTE_ADDR')
+        ip_addr = (ip_addr +" "+requset.META['HTTP_USER_AGENT'])
+    phone_percentage = requset.POST.get('phone_percentage') 
+    
+    if phone_percentage == None:
+
+        phone_percentage = 1
+    # Create and save the UserActivity instance
+        existing_activity = UserActivity.objects.filter(ip_address=ip_addr).first()
+        
+        if existing_activity:
+            # Handle the case where a record already exists with this IP address
+            error_message = "This IP address already has an associated activity."
+        else:
+            activity = UserActivity.objects.create(
+        ip_address=ip_addr,
+        phone_percentage=phone_percentage,
+    )
     count = items_count(requset)
     a = ProductVariation.objects.filter(ava=True)
     f = ProductFilter(requset.GET, queryset=a)
@@ -136,6 +161,7 @@ def catagory(requset):
                 'offer':count['offer'],     
                }
     return render (requset,"html/category.html",context)
+
 
 #___________________________________________________________________________________
 def search(requset,pk):
