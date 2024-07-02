@@ -6,32 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Category</title>
-  <link rel="icon" href="img/Fevicon.png" type="image/png">
-
-  <link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+  
+  
+	
+	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  
+ 
+  
   <link rel="stylesheet" href="{% static 'vendors/nouislider/nouislider.min.css' %}">
-  <link rel="icon" href="{% static 'imgs/logo.png'%}" type="image/png">
+  
+  	<link rel="icon" href="{% static 'imgs/logo.png'%}" type="image/png">
   <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
   <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
-  <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
   <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
   <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
   <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
-  {% include "parts/navbar.html" %}
-  <!--================ End Header Menu Area =================-->
-
-  {% if messages %}
+   {% include "parts/navbar.html" %}
+	<!--================ End Header Menu Area =================-->
+  
+	<!-- ================ start banner area ================= -->	
+  
+	<!-- ================ end banner area ================= -->
+  
+	   {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-success align-items-center" style="width: 100%; text-align: center;" role="alert">
-      {{ message }}
-    </div>
+	<div class="alert alert-success align-items-center" style="width: 100%; text-align: center;" role="alert">
+
+  {{ message }}
+</div>
     {% endfor %}
-  {% endif %}
-  <!-- ================ category section start ================= -->  
+{% endif %}
+	<!-- ================ category section start ================= -->	
+  	  
   <section class="section-margin--small mb-5">
     <div class="container">
       <div class="row">
@@ -41,48 +54,57 @@
             <ul class="main-categories">
               <li class="common-filter">
                 <form class="w-50 p-4" method="GET" >
-                  {{ filter.form.as_p }}
-                  <input type="submit" value="Search" class="button mr-auto mt-5 mr-4">
-                </form>
+                   {{ filter.form.as_p   }}
+                  <input type="submit" value="Search"  class="button  mr-auto  mt-5  mr-4">
+                  </ul>
               </li>
             </ul>
           </div>
+         
         </div>
-
-        <div class="col-xl-9 col-lg-8 col-md-7">
+      </form>
+    
+        <div class="col-xl-7 col-lg-3 col-md-7">
+          <!-- Start Filter Bar -->
+          
+            <!-- End Filter Bar -->
           <!-- Start Best Seller -->
-          <section class="text-center">
-            <div class="row d-flex flex-wrap justify-content-center">
-              {% for i in filter.qs %}
-              <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card text-center card-product">
+          <section style="text-align: center;"  class=" ">
+           
+            <div class="row">
+              {% for i in filter.qs  %}
+           
+              <div class="">
+
+                <div  class="card ddddd text-center card-product">
+                  &nbsp;
+                  &nbsp;
                   <div class="card-product__img">
-                    <img class="card-img" src="{{i.product.image.url}}" alt="">
+                    <img class="card-img"   style="width: 8rem;" src="{{i.product.image.url}}" alt="">
                     <ul class="card-product__imgOverlay">
-                      <a><li><button type="button" data-index="{{i.id}}" class="add-to-cart"><i id="id-{{i.id}}" class="ti-shopping-cart added">اضافة المنتج</i></button></li></a>
+                    
+                      <a ><li ><button type="button" data-index="{{i.id}}" class="add-to-cart "><i  id="id-{{i.id}}" class="ti-shopping-cart  added">اضافة المنتج </i></button></li></a>
                     </ul>
                   </div>
                   <div class="card-body">
                     <p>{{i.catagory}}</p>
-                    <h4 class="card-product__title"><a id="name" href="{% url 'products' i.product.id %}">{{i.product.name|truncatewords:2}}</a></h4>
-                    <a style="color: black;" href="{% url 'products' i.product.id %}">
-                      <p class="card-product__price">{{i.discount}}EGP</p>
-                      <p style="text-decoration: line-through;font-size: 15px;" class="card-product__price">{{i.price}}EGP</p>
+                    <h4 class="card-product__title"><a id="name" href="{% url 'products' i.product.id  %}">{{i.product.name | truncatewords:2  }}</a></h4>
+                  <a  style="color: black;" href="{% url 'products' i.product.id  %}">
+                    <p class="card-product__price">{{i.discount}}EGP</p>
+                      <p style="text-decoration: line-through;font-size: 15px;"  class="card-product__price">{{i.price}}EGP</p>
                     </a>
-                  </div>
+                    </div>
                 </div>
               </div>
               {% endfor %}
-            </div>
           </section>
           <!-- End Best Seller -->
         </div>
       </div>
     </div>
   </section>
-  <!-- ================ category section end ================= -->  
-
-  <!-- ================ Subscribe section start ================= -->  
+	<!-- ================ category section end ================= -->		  
+	<!-- ================ Subscribe section start ================= -->		  
   <section class="subscribe-position">
     <div class="container">
       <div class="subscribe text-center">
@@ -91,40 +113,32 @@
         <div id="mc_embed_signup">
           <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
             <div class="form-group ml-sm-auto">
-              <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '">
+              <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" >
               <div class="info"></div>
             </div>
             <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
             <div style="position: absolute; left: -5000px;">
               <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
             </div>
+
           </form>
         </div>
+        
       </div>
     </div>
   </section>
-
   <style>
-    .card-product {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+   @media only screen and (max-width: 433px){
+    .ddddd{
+        margin-left : 30px;
     }
-    .card-product__img img {
-      width: 80%;
-      height: auto;
-    }
-    @media only screen and (max-width: 433px) {
-      .card-product {
-        margin-left: 30px;
-      }
-    }
+}
   </style>
-
-  <!--================ Start footer Area  =================-->  
-  {% include "parts/footer.html" %}
-  <!--================ End footer Area  =================-->  
-  <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+	<!-- ================ Subscribe section end ================= -->		  
+  <!--================ Start footer Area  =================-->	
+{% include "parts/footer.html" %}
+	<!--================ End footer Area  =================-->  
+ <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
   <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
   <script src="{% static 'vendors/skrollr.min.js' %}"></script>
   <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
@@ -135,53 +149,54 @@
   <script src="{% static 'js/ajax.js'%}"></script>
   <script src="{% static  'vendors/nouislider/nouislider.min.js' %}"></script>
   <script>
-    $(".add-to-cart").on('click', function() {
-      let qty = $("#form1").val()
+   $(".add-to-cart").on('click',function(){
+      let qty  = $("#form1").val()
       let name = $(this)
       let id = name.attr("data-index")
       let offerm = $("#offer")
       let this_b = $(".added")
       var added = $('#id-' + id);
-      console.log(name)
+      console.log (name)
       let iteam_count = $('#count')
-      console.log("id", id);
-      console.log("qty", qty);
-      console.log("count", iteam_count);
+      console.log("id",id);
+      console.log("qty",qty);
+      console.log("count",iteam_count);
       console.log(this_b)
       $.ajax({
-        url: "add/",
-        data: {
-          'id': id,
-          'qty': qty,
+        url : "add/",
+        data:{
+          'id' : id,
+          'qty' : qty,
         },
-        dataType: 'json',
-        success: function(response) {
-          console.log("id", id)
+        dataType:'json',
+        success : function(response){
+          console.log("id",id)
           iteam_count.text(response.items_count)
           added.text("تم اضافة المنتج ")
-          offerm.text(response.offer)
-          Toastify({
-            text: "تم اضافة المنتج بنجاح",
-            duration: 2000,
-            newWindow: false,
-            close: true,
-            gravity: "bottom", // `top` or `bottom`
-            position: "center", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-              background: "#693a86",
-            },
-            onClick: function(){} // Callback after click
-          }).showToast();
+           offerm.text(response.offer)
+           Toastify({
+  text: "تم اضافة المنتج بنجاح",
+  duration: 2000,
+  newWindow: false,
+  close: true,
+  gravity: "bottom", // `top` or `bottom`
+  position: "center", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "#693a86",
+  },
+  onClick: function(){} // Callback after click
+}).showToast();
         }
       })
     })
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+  const observer = new IntersectionObserver((entries) =>{
+      entries.forEach((entry) =>{
         console.log(entry)
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        } else {
+        if (entry.isIntersecting){
+            entry.target.classList.add('show');
+
+        }else{
           entry.target.classList.remove('show');
         }
       });
@@ -189,6 +204,9 @@
 
     const hiddenelemnt = document.querySelectorAll('.section-margin')
     hiddenelemnt.forEach((el) => observer.observe(el));
-  </script>
+   
+
+    </script>
+  
 </body>
 </html>
